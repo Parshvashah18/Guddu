@@ -1,237 +1,163 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>For My Love</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For My Love</title>
 
-    <style>
-        :root {
-            --primary-pink: #ff4d6d;
-            --border-gold: #ffd700;
-            --soft-white: #fff0f3;
-        }
+<style>
+:root {
+    --primary-pink: #ff4d6d;
+    --border-gold: #ffd700;
+    --soft-white: #fff0f3;
+}
 
-        body,
-        html {
-            margin: 0;
-            padding: 0;
-            height: 100%;
-            width: 100%;
-            background-color: var(--soft-white);
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            overflow-x: hidden;
-        }
+body {
+    margin: 0;
+    font-family: sans-serif;
+    background: var(--soft-white);
+}
 
-        /* Page */
-        .page {
-            display: none;
-            box-sizing: border-box;
-            border: 10px double var(--border-gold);
-            height: 100vh;
-            width: 100vw;
-            position: absolute;
-            top: 0;
-            left: 0;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            padding: 15px;
-            animation: slideIn 0.8s ease-out;
-        }
+/* Pages */
+.page {
+    display: none;
+    min-height: 100vh;
+    padding: 15px;
+    box-sizing: border-box;
+    text-align: center;
+    border: 6px double var(--border-gold);
+}
 
-        #page1 {
-            display: flex;
-        }
+#page1 { display: block; }
 
-        @keyframes slideIn {
-            from {
-                transform: translateY(100%);
-                opacity: 0;
-            }
+/* Buttons */
+.next-btn {
+    margin-top: 20px;
+    padding: 12px 25px;
+    font-size: 1rem;
+    border-radius: 30px;
+    border: none;
+    background: var(--primary-pink);
+    color: white;
+}
 
-            to {
-                transform: translateY(0);
-                opacity: 1;
-            }
-        }
+/* Grid */
+.photo-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
+    gap: 10px;
+    margin-top: 20px;
+}
 
-        /* Button */
-        .next-btn {
-            margin-top: 25px;
-            padding: 12px 30px;
-            font-size: 1rem;
-            background-color: var(--primary-pink);
-            color: white;
-            border: none;
-            border-radius: 50px;
-            cursor: pointer;
-            box-shadow: 0 5px 15px rgba(255, 77, 109, 0.4);
-        }
+.photo-wrapper img {
+    width: 100%;
+    aspect-ratio: 1/1;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid var(--primary-pink);
+}
 
-        .next-btn:hover {
-            transform: scale(1.1);
-        }
+/* Love wall */
+.love-wall {
+    font-size: 0.75rem;
+    line-height: 1.4;
+    background: white;
+    padding: 10px;
+    border-radius: 10px;
+    max-height: 60vh;
+    overflow-y: auto;
+}
 
-        /* Photo Grid */
-        .photo-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-            gap: 10px;
-            margin-bottom: 20px;
-            animation: rotateClockwise 20s linear infinite;
-        }
+/* Floating hearts */
+.heart {
+    position: fixed;
+    bottom: -10px;
+    animation: floatUp 5s linear infinite;
+    color: var(--primary-pink);
+}
 
-        .photo-wrapper {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            animation: keepUpright 20s linear infinite;
-        }
+@keyframes floatUp {
+    to {
+        transform: translateY(-100vh);
+        opacity: 0;
+    }
+}
 
-        .photo-wrapper img {
-            width: 100%;
-            max-width: 120px;
-            aspect-ratio: 1/1;
-            object-fit: cover;
-            border-radius: 50%;
-            border: 3px solid var(--primary-pink);
-        }
+/* Responsive text */
+h1 { font-size: 1.6rem; }
+h2 { font-size: 1.3rem; }
 
-        @keyframes rotateClockwise {
-            from {
-                transform: rotate(0deg);
-            }
-
-            to {
-                transform: rotate(360deg);
-            }
-        }
-
-        @keyframes keepUpright {
-            from {
-                transform: rotate(0deg);
-            }
-
-            to {
-                transform: rotate(-360deg);
-            }
-        }
-
-        /* Love Wall */
-        .love-wall {
-            font-size: 0.8rem;
-            color: #c9184a;
-            max-width: 90%;
-            background: rgba(255, 255, 255, 0.7);
-            padding: 10px;
-            border-radius: 10px;
-        }
-
-        /* Floating Hearts */
-        .heart {
-            position: fixed;
-            bottom: -10px;
-            color: var(--primary-pink);
-            font-size: 20px;
-            animation: floatUp 6s linear infinite;
-        }
-
-        @keyframes floatUp {
-            0% {
-                transform: translateY(0);
-                opacity: 1;
-            }
-
-            100% {
-                transform: translateY(-100vh);
-                opacity: 0;
-            }
-        }
-
-        /* Responsive */
-        @media (max-width:600px) {
-            h1 {
-                font-size: 1.6rem;
-            }
-
-            h2 {
-                font-size: 1.3rem;
-            }
-        }
-    </style>
+@media (min-width: 768px) {
+    h1 { font-size: 2.2rem; }
+    h2 { font-size: 1.6rem; }
+}
+</style>
 </head>
 
 <body>
 
-    <!-- 🎵 Background Music -->
-    <audio autoplay loop>
-        <source src="https://www.bensound.com/bensound-music/bensound-romantic.mp3" type="audio/mp3">
-    </audio>
+<!-- Music -->
+<audio autoplay loop>
+    <source src="https://www.bensound.com/bensound-music/bensound-romantic.mp3">
+</audio>
 
-    <!-- ❤️ Floating Hearts -->
-    <script>
-        setInterval(() => {
-            let heart = document.createElement("div");
-            heart.className = "heart";
-            heart.innerHTML = "❤️";
-            heart.style.left = Math.random() * 100 + "vw";
-            heart.style.fontSize = (15 + Math.random() * 20) + "px";
-            document.body.appendChild(heart);
+<!-- Floating hearts -->
+<script>
+setInterval(()=>{
+ let h=document.createElement("div");
+ h.className="heart";
+ h.innerHTML="❤️";
+ h.style.left=Math.random()*100+"vw";
+ h.style.fontSize=(15+Math.random()*20)+"px";
+ document.body.appendChild(h);
+ setTimeout(()=>h.remove(),5000);
+},500);
+</script>
 
-            setTimeout(() => heart.remove(), 6000);
-        }, 400);
-    </script>
+<!-- Page 1 -->
+<div class="page" id="page1">
+    <h1>To My Favorite Person ❤️</h1>
+    <p>I have something special for you...</p>
+    <button class="next-btn" onclick="showPage('page2')">Open 💌</button>
+</div>
 
-    <!-- Page 1 -->
-    <div class="page" id="page1">
-        <h1>To My Favorite Person ❤️</h1>
-        <p>I have a special message just for you...</p>
-        <div style="font-size:3rem;">🌹</div>
-        <button class="next-btn" onclick="showPage('page2')">Open Guddu</button>
+<!-- Page 2 -->
+<div class="page" id="page2">
+    <h2>Us Together 💋</h2>
+
+    <div class="photo-container">
+        <img src="WhatsApp Image 2026-03-26 at 7.51.45 PM (1).jpeg">
+        <img src="WhatsApp Image 2026-03-26 at 7.51.45 PM (2).jpeg">
+        <img src="WhatsApp Image 2026-03-26 at 7.51.45 PM.jpeg">
+        <img src="WhatsApp Image 2026-03-26 at 7.54.50 PM (1).jpeg">
+        <img src="WhatsApp Image 2026-03-26 at 7.54.50 PM.jpeg">
+        <img src="WhatsApp Image 2026-03-26 at 7.54.51 PM.jpeg">
+        <img src="WhatsApp Image 2026-03-26 at 7.51.45 PM (3).jpeg">
+        
     </div>
 
-    <!-- Page 2 -->
-    <div class="page" id="page2">
-        <h2>Us Together 💋</h2>
+    <button class="next-btn" onclick="showPage('page3')">Next ❤️</button>
+</div>
 
-        <div class="photo-container">
-            <div class="photo-wrapper"><img src="WhatsApp Image 2026-03-26 at 7.51.45 PM (1).jpeg"><span>❤️</span></div>
-            <div class="photo-wrapper"><img src="WhatsApp Image 2026-03-26 at 7.51.45 PM (2).jpeg"><span>💋</span></div>
-            <div class="photo-wrapper"><img src="WhatsApp Image 2026-03-26 at 7.51.45 PM (3).jpeg"><span>❤️</span></div>
-            <div class="photo-wrapper"><img src="WhatsApp Image 2026-03-26 at 7.51.45 PM.jpeg"><span>💋</span></div>
-            <div class="photo-wrapper"><img src="WhatsApp Image 2026-03-26 at 7.54.50 PM (1).jpeg"><span>❤️</span></div>
-            <div class="photo-wrapper"><img src="WhatsApp Image 2026-03-26 at 7.54.50 PM.jpeg"><span>❤️</span></div>
-            <div class="photo-wrapper"><img src="WhatsApp Image 2026-03-26 at 7.54.51 PM.jpeg"><span>❤️</span></div>
-        </div>
+<!-- Page 3 -->
+<div class="page" id="page3">
+    <div class="love-wall" id="loveWall"></div>
+    <button class="next-btn" onclick="showPage('page1')">Restart ❤️</button>
+</div>
 
-        <button class="next-btn" onclick="showPage('page3')">Final Surprise</button>
-    </div>
+<script>
+function showPage(id){
+ document.querySelectorAll(".page").forEach(p=>p.style.display="none");
+ document.getElementById(id).style.display="block";
+}
 
-    <!-- Page 3 -->
-    <div class="page" id="page3">
-        <div class="love-wall" id="loveWall"></div>
-        <button class="next-btn" onclick="showPage('page1')">Restart ❤️</button>
-    </div>
-
-    <script>
-        function showPage(pageId) {
-            document.querySelectorAll('.page').forEach(p => p.style.display = 'none');
-            document.getElementById(pageId).style.display = 'flex';
-        }
-
-        /* Generate Love Text */
-        let wall = document.getElementById("loveWall");
-        let text = "";
-        for (let i = 1; i <= 100; i++) {
-            text += "I Love You Guddu ❤️ ";
-            if (i % 4 === 0) text += "<br>";
-        }
-        wall.innerHTML = text;
-    </script>
+let txt="";
+for(let i=0;i<100;i++){
+ txt+="I Love You Guddu ❤️ ";
+ if(i%4===0) txt+="<br>";
+}
+document.getElementById("loveWall").innerHTML=txt;
+</script>
 
 </body>
-
 </html>
