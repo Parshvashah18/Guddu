@@ -1,163 +1,263 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>For My Love</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For My Love</title>
+    <style>
+        :root {
+            --primary-pink: #ff4d6d;
+            --border-gold: #ffd700;
+            --soft-white: #fff0f3;
+        }
 
-<style>
-:root {
-    --primary-pink: #ff4d6d;
-    --border-gold: #ffd700;
-    --soft-white: #fff0f3;
-}
+        body,
+        html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            width: 100%;
+            background-color: var(--soft-white);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow: hidden;
+            /* Prevents manual scrolling */
+        }
 
-body {
-    margin: 0;
-    font-family: sans-serif;
-    background: var(--soft-white);
-}
+        /* Page Container with Animated Border */
+        .page {
+            display: none;
+            /* Hidden by default */
+            box-sizing: border-box;
+            border: 12px double var(--border-gold);
+            height: 100vh;
+            width: 100vw;
+            position: absolute;
+            top: 0;
+            left: 0;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 20px;
+            animation: slideIn 0.8s ease-out;
+        }
 
-/* Pages */
-.page {
-    display: none;
-    min-height: 100vh;
-    padding: 15px;
-    box-sizing: border-box;
-    text-align: center;
-    border: 6px double var(--border-gold);
-}
+        /* Border Animation Effect */
+        @keyframes slideIn {
+            from {
+                transform: translateY(100%);
+                opacity: 0;
+            }
 
-#page1 { display: block; }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
 
-/* Buttons */
-.next-btn {
-    margin-top: 20px;
-    padding: 12px 25px;
-    font-size: 1rem;
-    border-radius: 30px;
-    border: none;
-    background: var(--primary-pink);
-    color: white;
-}
+        /* Make the first page visible initially */
+        #page1 {
+            display: flex;
+        }
 
-/* Grid */
-.photo-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
-    gap: 10px;
-    margin-top: 20px;
-}
+        /* Centered Button Styling */
+        .next-btn {
+            margin-top: 30px;
+            padding: 15px 40px;
+            font-size: 1.2rem;
+            background-color: var(--primary-pink);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(255, 77, 109, 0.4);
+            transition: transform 0.2s, background-color 0.2s;
+            z-index: 10;
+            /* Ensures button is clickable over animations */
+        }
 
-.photo-wrapper img {
-    width: 100%;
-    aspect-ratio: 1/1;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 3px solid var(--primary-pink);
-}
+        .next-btn:hover {
+            transform: scale(1.1);
+            background-color: #c9184a;
+        }
 
-/* Love wall */
-.love-wall {
-    font-size: 0.75rem;
-    line-height: 1.4;
-    background: white;
-    padding: 10px;
-    border-radius: 10px;
-    max-height: 60vh;
-    overflow-y: auto;
-}
+        /* --- Updated Photo Grid Animations --- */
 
-/* Floating hearts */
-.heart {
-    position: fixed;
-    bottom: -10px;
-    animation: floatUp 5s linear infinite;
-    color: var(--primary-pink);
-}
+        .photo-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-bottom: 20px;
+            /* Animation to make the grid rotate clockwise */
+            animation: rotateClockwise 20s linear infinite;
+            /* Ensures the rotation centers on the container */
+            transform-origin: center center;
+        }
 
-@keyframes floatUp {
-    to {
-        transform: translateY(-100vh);
-        opacity: 0;
-    }
-}
+        .photo-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            /* Animation to keep the photos upright while the grid rotates */
+            animation: keepUpright 20s linear infinite;
+        }
 
-/* Responsive text */
-h1 { font-size: 1.6rem; }
-h2 { font-size: 1.3rem; }
+        .photo-wrapper img {
+            width: 140px;
+            height: 140px;
+            object-fit: cover;
+            border-radius: 50%;
+            /* Circular photos */
+            border: 4px solid var(--primary-pink);
+        }
 
-@media (min-width: 768px) {
-    h1 { font-size: 2.2rem; }
-    h2 { font-size: 1.6rem; }
-}
-</style>
+        .emoji-circle {
+            font-size: 1.2rem;
+            margin-top: 5px;
+        }
+
+        /* Keyframes for the clockwise rotation */
+        @keyframes rotateClockwise {
+            from {
+                transform: rotate(0deg);
+            }
+
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* Keyframes to keep photos upright (counter-rotation) */
+        @keyframes keepUpright {
+            from {
+                transform: rotate(0deg);
+            }
+
+            to {
+                transform: rotate(-360deg);
+            }
+        }
+
+        /* --- End of Updated Photo Animations --- */
+
+        /* The 100 I Loves - Fit to page */
+        .love-wall {
+            font-size: 0.9rem;
+            line-height: 1.5;
+            color: #c9184a;
+            max-width: 90%;
+            background: rgba(255, 255, 255, 0.7);
+            padding: 15px;
+            border-radius: 15px;
+            overflow: hidden;
+            /* Keeps it on one page */
+        }
+
+        /* 📱 Mobile Devices */
+        @media (max-width: 600px) {
+
+            .photo-container {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 10px;
+            }
+
+            .photo-wrapper img {
+                width: 90px;
+                height: 90px;
+            }
+
+            h1 {
+                font-size: 1.6rem;
+            }
+
+            h2 {
+                font-size: 1.3rem;
+            }
+
+            .next-btn {
+                padding: 10px 25px;
+                font-size: 1rem;
+            }
+
+            .love-wall {
+                font-size: 0.7rem;
+                padding: 10px;
+            }
+
+            .page {
+                border-width: 6px;
+                padding: 10px;
+            }
+        }
+
+
+        h1,
+        h2 {
+            color: var(--primary-pink);
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+        }
+    </style>
 </head>
 
 <body>
 
-<!-- Music -->
-<audio autoplay loop>
-    <source src="https://www.bensound.com/bensound-music/bensound-romantic.mp3">
-</audio>
-
-<!-- Floating hearts -->
-<script>
-setInterval(()=>{
- let h=document.createElement("div");
- h.className="heart";
- h.innerHTML="❤️";
- h.style.left=Math.random()*100+"vw";
- h.style.fontSize=(15+Math.random()*20)+"px";
- document.body.appendChild(h);
- setTimeout(()=>h.remove(),5000);
-},500);
-</script>
-
-<!-- Page 1 -->
-<div class="page" id="page1">
-    <h1>To My Favorite Person ❤️</h1>
-    <p>I have something special for you...</p>
-    <button class="next-btn" onclick="showPage('page2')">Open 💌</button>
-</div>
-
-<!-- Page 2 -->
-<div class="page" id="page2">
-    <h2>Us Together 💋</h2>
-
-    <div class="photo-container">
-        <img src="WhatsApp Image 2026-03-26 at 7.51.45 PM (1).jpeg">
-        <img src="WhatsApp Image 2026-03-26 at 7.51.45 PM (2).jpeg">
-        <img src="WhatsApp Image 2026-03-26 at 7.51.45 PM.jpeg">
-        <img src="WhatsApp Image 2026-03-26 at 7.54.50 PM (1).jpeg">
-        <img src="WhatsApp Image 2026-03-26 at 7.54.50 PM.jpeg">
-        <img src="WhatsApp Image 2026-03-26 at 7.54.51 PM.jpeg">
-        <img src="WhatsApp Image 2026-03-26 at 7.51.45 PM (3).jpeg">
-        
+    <div class="page" id="page1">
+        <h1>To My Favorite Person ❤️</h1>
+        <p style="font-size: 1.3rem;">I have a special message just for you...</p>
+        <div style="font-size: 3rem; animation: pulse 2s infinite;">🌹</div>
+        <button class="next-btn" onclick="showPage('page2')">Special Things for You</button>
     </div>
 
-    <button class="next-btn" onclick="showPage('page3')">Next ❤️</button>
-</div>
+    <div class="page" id="page2">
+        <h2>Us Together 💋</h2>
+        <div class="photo-container">
+            <div class="photo-wrapper"><img src="WhatsApp Image 2026-03-26 at 7.51.45 PM (1).jpeg" alt="1"><span
+                    class="emoji-circle">❤️</span></div>
+            <div class="photo-wrapper"><img src="WhatsApp Image 2026-03-26 at 7.51.45 PM (2).jpeg" alt="2"><span
+                    class="emoji-circle">💋</span></div>
+            <div class="photo-wrapper"><img src="WhatsApp Image 2026-03-26 at 7.51.45 PM (3).jpeg" alt="3"><span
+                    class="emoji-circle">❤️</span></div>
+            <div class="photo-wrapper"><img src="WhatsApp Image 2026-03-26 at 7.51.45 PM.jpeg" alt="4"><span
+                    class="emoji-circle">💋</span></div>
+            <div class="photo-wrapper"><img src="WhatsApp Image 2026-03-26 at 7.54.50 PM (1).jpeg" alt="5"><span
+                    class="emoji-circle">❤️</span></div>
+            <div class="photo-wrapper"><img src="WhatsApp Image 2026-03-26 at 7.54.50 PM.jpeg" alt="5"><span
+                    class="emoji-circle">❤️</span></div>
+            <div class="photo-wrapper"><img src="WhatsApp Image 2026-03-26 at 7.54.51 PM.jpeg" alt="5"><span
+                    class="emoji-circle">❤️</span></div>
+        </div>
+        <button class="next-btn" onclick="showPage('page3')">Final Surprise</button>
+    </div>
 
-<!-- Page 3 -->
-<div class="page" id="page3">
-    <div class="love-wall" id="loveWall"></div>
-    <button class="next-btn" onclick="showPage('page1')">Restart ❤️</button>
-</div>
+    <div class="page" id="page3">
+        <div class="love-wall" id="loveWall">
+        </div>
+        <button class="next-btn" onclick="showPage('page1')">Restart ❤️</button>
+    </div>
 
-<script>
-function showPage(id){
- document.querySelectorAll(".page").forEach(p=>p.style.display="none");
- document.getElementById(id).style.display="block";
-}
+    <script>
+        // Function to switch pages
+        function showPage(pageId) {
+            // Hide all pages
+            document.querySelectorAll('.page').forEach(page => {
+                page.style.display = 'none';
+            });
+            // Show the selected page
+            document.getElementById(pageId).style.display = 'flex';
+        }
 
-let txt="";
-for(let i=0;i<100;i++){
- txt+="I Love You Guddu ❤️ ";
- if(i%4===0) txt+="<br>";
-}
-document.getElementById("loveWall").innerHTML=txt;
-</script>
+        // Generate the 100 "I Love You" messages
+        const loveWall = document.getElementById('loveWall');
+        let content = "";
+        for (let i = 1; i <= 100; i++) {
+            content += "I Love You Guddu ❤️ 💋 ";
+            // This ensures it fits nicely on a single page
+            if (i % 4 === 0) content += "<br>";
+        }
+        loveWall.innerHTML = content;
+    </script>
 
 </body>
+
 </html>
